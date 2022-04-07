@@ -19,6 +19,8 @@ public class Scoreboard extends AppCompatActivity {
         super.onCreate(savedInstance);
         setContentView(R.layout.score_list);
 
+        ListView listView = findViewById(R.id.ListView01);
+
         Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.user_icon); //placeholder
 
         List<UserRecord> list = new ArrayList<UserRecord>();
@@ -33,8 +35,6 @@ public class Scoreboard extends AppCompatActivity {
         Collections.reverse(list);
 
         UserRecordAdapter adapter = new UserRecordAdapter(this, 0, list);
-
-        ListView listView = findViewById(R.id.ListView01);
         listView.setAdapter(adapter);
     }
 

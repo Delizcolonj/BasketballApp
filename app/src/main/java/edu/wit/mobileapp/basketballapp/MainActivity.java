@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, Game.class );
-
                 startActivity(intent);
-
             }
         });
 
@@ -38,12 +36,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, Scoreboard.class);
-
                 startActivity(intent);
-
             }
         });
-
         exit_butn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
