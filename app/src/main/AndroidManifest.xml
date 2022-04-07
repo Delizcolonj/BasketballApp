@@ -11,9 +11,11 @@
         android:theme="@style/Theme.BasketballApp">
         <activity
             android:name=".Game"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".Scoreboard"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
