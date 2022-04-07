@@ -8,6 +8,8 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Scoreboard extends AppCompatActivity {
@@ -19,23 +21,21 @@ public class Scoreboard extends AppCompatActivity {
 
         Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.user_icon); //placeholder
 
-        List<UserRecord> list = new ArrayList<>();
+        List<UserRecord> list = new ArrayList<UserRecord>();
 
-        UserRecord record1 = new UserRecord();
-        record1.icon = userIcon;
-        record1.name = "John";
-        record1.score = 100;
+        UserRecord record1 = new UserRecord(userIcon, "John", "60");
         list.add(record1);
 
-        UserRecord record2 = new UserRecord();
-        record2.icon = userIcon;
-        record2.name = "Duoduo";
-        record2.score = 96;
+        UserRecord record2 = new UserRecord(userIcon,"Duoduo", "96");
         list.add(record2);
+
+        Collections.sort(list, UserRecord.scoreAscending);
+        Collections.reverse(list);
 
         UserRecordAdapter adapter = new UserRecordAdapter(this, 0, list);
 
         ListView listView = findViewById(R.id.ListView01);
         listView.setAdapter(adapter);
     }
+
 }
