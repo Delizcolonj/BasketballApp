@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameView extends SurfaceView implements Runnable {
 
-
     private Thread thread;
     public boolean isPlaying = true;
     private Context context;
+
+
     public GameView(Context f) {
         super(f);
     }
