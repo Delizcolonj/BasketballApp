@@ -61,16 +61,20 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
     if (Slider.Up) {
-    Slider.y -= 40 * ScreenRatioY;
+    Slider.y += 40 * ScreenRatioY;
     }
     else {
-        Slider.y += 40 * ScreenRatioY;
+        Slider.y -= 40 * ScreenRatioY;
     }
-        if (Slider.y < 0)
+        if (Slider.y <= 0) {
             Slider.y = 0;
+            Slider.Up = true;
+        }
 
-        if (Slider.y >= ScreenY - Slider.height)
-            Slider.y = ScreenY - Slider.height;
+        if (Slider.y >= ScreenY - Slider.height) {
+           Slider.y = ScreenY - Slider.height;
+        Slider.Up = false;
+        }
     }
 
     private void draw() {
@@ -91,7 +95,7 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     }
-    @Override
+    /**@Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction()) {
@@ -108,5 +112,5 @@ public class GameView extends SurfaceView implements Runnable {
         }
 
         return true;
-    }
+    } **/
 }
