@@ -11,8 +11,10 @@ public class GameView extends SurfaceView implements Runnable {
     private Thread thread;
     public boolean isPlaying = true;
     private Context context;
-    public GameView(Context f) {
+
+    public GameView(Context f, int x, int y) {
         super(f);
+
     }
 
     @Override
@@ -33,5 +35,7 @@ public class GameView extends SurfaceView implements Runnable {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
     }
 }

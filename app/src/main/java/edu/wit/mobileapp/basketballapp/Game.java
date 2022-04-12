@@ -14,9 +14,10 @@ private GameView GameV;
 
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
+
         setContentView(R.layout.game_layout);
-        //GameV = new GameView(context this);
-        this.GameV = GameV;
+        GameV = new GameView(this, 1, 1);
+        //this.GameV = GameV;
 
 
     }
