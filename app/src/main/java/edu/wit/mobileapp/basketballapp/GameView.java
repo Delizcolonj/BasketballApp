@@ -16,7 +16,7 @@ public class GameView extends SurfaceView implements Runnable {
     public boolean isPlaying;
     private Game game;
     //private Context context;
-    private int ScreenX, ScreenY;
+    private int  ScreenX, ScreenY;
     private Paint paint;
     public float ScreenRatioX;
     public float ScreenRatioY;
