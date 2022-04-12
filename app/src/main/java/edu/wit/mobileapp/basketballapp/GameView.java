@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.basketballapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,6 +8,7 @@ import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+@SuppressLint("ViewConstructor")
 public class GameView extends SurfaceView implements Runnable {
 
 
@@ -27,6 +29,7 @@ public class GameView extends SurfaceView implements Runnable {
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
         Slider = new BallPhys(this, ScreenY, getResources());
+        this.isPlaying = true;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class GameView extends SurfaceView implements Runnable {
             update();
             draw();
             sleep();
+            //isPlaying=false;
         }
     }
 
@@ -58,7 +62,7 @@ public class GameView extends SurfaceView implements Runnable {
     Slider.y -= 40 * ScreenRatioY;
     }
     else {
-        Slider.y += 30 * ScreenRatioY;
+        Slider.y += 40 * ScreenRatioY;
     }
     }
 
@@ -71,10 +75,10 @@ public class GameView extends SurfaceView implements Runnable {
     }
     private void sleep() {
         try {
-            Thread.sleep(19);
+           Thread.sleep(500);
         }
         catch (InterruptedException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
 
 

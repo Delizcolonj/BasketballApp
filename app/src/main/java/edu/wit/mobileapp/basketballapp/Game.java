@@ -20,6 +20,9 @@ public class Game extends AppCompatActivity {
 
         GameView GameV2 = new GameView(this, p.x, p.y);
         this.GameV = GameV2;
+       // GameV.run();
+        GameV2.run();
+
 
 
     }
