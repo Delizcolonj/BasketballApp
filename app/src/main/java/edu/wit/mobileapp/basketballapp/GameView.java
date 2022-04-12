@@ -40,7 +40,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
     if (Slider.Up) {
-
+    Slider.y -= 40 * ScreenRatioY;
+    }
+    else {
+        Slider.y += 30 * ScreenRatioY;
     }
     }
 
