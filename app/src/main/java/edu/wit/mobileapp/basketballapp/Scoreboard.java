@@ -1,8 +1,11 @@
 package edu.wit.mobileapp.basketballapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +38,20 @@ public class Scoreboard extends AppCompatActivity {
         Collections.reverse(list);
 
         UserRecordAdapter adapter = new UserRecordAdapter(this, 0, list);
+
         listView.setAdapter(adapter);
+
+        Button home_btn = (Button)findViewById(R.id.button4);
+
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(Scoreboard.this, MainActivity.class );
+                startActivity(intent);
+            }
+        });
     }
+
 
 }

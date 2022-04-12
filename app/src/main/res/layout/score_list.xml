@@ -7,6 +7,13 @@
     <ListView
         android:id="@+id/ListView01"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="213dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:backgroundTint="@color/orange"
+        android:text="Home" />
 
 </LinearLayout>
