@@ -98,7 +98,7 @@ public class GameView extends SurfaceView implements Runnable {
                 break;
             case MotionEvent.ACTION_UP:
                 Slider.Up = false;
-                if (event.getX() > ScreenY / 2)
+                if (event.getY() > ScreenY / 2)
                     Slider.moveDir++;
                 break;
         }
