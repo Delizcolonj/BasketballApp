@@ -1,11 +1,14 @@
 package edu.wit.mobileapp.basketballapp;
 
+import static edu.wit.mobileapp.basketballapp.GameView.ScreenRatioX;
+import static edu.wit.mobileapp.basketballapp.GameView.ScreenRatioY;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class BallPhys   {
-    int x, y, move;
+public class BallPhys {
+    int x, y, move = 1;
     int width;
     int height;
     Bitmap TheBall;
@@ -13,7 +16,7 @@ public class BallPhys   {
     boolean Up = false;
     private GameView gameView;
 
-    BallPhys (GameView gameView, int ScreenY, Resources Res){
+    BallPhys(GameView gameView, int ScreenY, Resources Res) {
         this.gameView = gameView;
 
         TheBall = BitmapFactory.decodeResource(Res, R.drawable.ball);
@@ -24,25 +27,29 @@ public class BallPhys   {
         width /= 10;
         height /= 10;
 
-        width =(int) (width * gameView.ScreenRatioX);
-        height = (int) (height * gameView.ScreenRatioY);
+        width = (int) (width * ScreenRatioX);
+        height = (int) (height * ScreenRatioY);
 
         TheBall = Bitmap.createScaledBitmap(TheBall, width, height, false);
 
         y = ScreenY / 2;
-        x = (int) (64 * gameView.ScreenRatioX);
+        x = (int) (64 * ScreenRatioX);
     }
 
-    Bitmap Movement (){
-        if (moveDir != 0) {
+    Bitmap Movement() {
+
+        if(moveDir != 0) {
             if (move == 1) {
                 move++;
                 return TheBall;
             }
-            moveDir++;
+            move = 1;
+            moveDir--;
+            gameView.newBall();
+
+            return TheBall;
         }
-        move = 1;
-        moveDir--;
+
         return TheBall;
     }
 }

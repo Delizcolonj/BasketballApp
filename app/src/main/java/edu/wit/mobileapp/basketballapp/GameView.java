@@ -1,37 +1,45 @@
 package edu.wit.mobileapp.basketballapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 @SuppressLint("ViewConstructor")
 public class GameView extends SurfaceView implements Runnable {
 
 
     private Thread thread;
-    public boolean isPlaying = true;
+    private boolean isPlaying;
     private Game game;
     //private Context context;
     private int ScreenX, ScreenY;
     private Paint paint;
-    public float ScreenRatioX;
-    public float ScreenRatioY;
+    public static float ScreenRatioX;
+    public static float ScreenRatioY;
     private BallPhys Slider;
+    private Background background1;
 
     public GameView(Game game, int x, int y) {
         super(game);
+
+        this.game = game;
+
         this.ScreenX = x;
         this.ScreenY = y;
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
 
+        background1 = new Background(ScreenX, ScreenY, getResources());
+        //background1.x = ScreenX;
+
         Slider = new BallPhys(this, ScreenY, getResources());
-        this.isPlaying = true;
+
+        paint = new Paint();
+        paint.setTextSize(128);
+        paint.setColor(Color.WHITE);
     }
 
     @Override
@@ -44,7 +52,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
-    public void resume() {
+    public void resume(){
         isPlaying = true;
         thread = new Thread(this);
         thread.start();
@@ -60,20 +68,25 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-    if (Slider.Up) {
-    Slider.y += 40 * ScreenRatioY;
-    }
-    else {
-        Slider.y -= 40 * ScreenRatioY;
-    }
-        if (Slider.y <= 0) {
+
+        //background1.x -= 10 * ScreenRatioX;
+
+        if (background1.x + background1.background.getWidth() < 0) {
+            background1.x = ScreenX;
+        }
+        if (Slider.Up) {
+            Slider.y += 30 * ScreenRatioY;
+        }
+        else {
+            Slider.y -= 30 * ScreenRatioY;
+        }
+        if (Slider.y < 0) {
             Slider.y = 0;
             Slider.Up = true;
         }
-
         if (Slider.y >= ScreenY - Slider.height) {
-           Slider.y = ScreenY - Slider.height;
-        Slider.Up = false;
+            Slider.y = ScreenY - Slider.height;
+            Slider.Up = false;
         }
     }
 
@@ -81,13 +94,16 @@ public class GameView extends SurfaceView implements Runnable {
         if (getHolder().getSurface().isValid()) {
 
             Canvas C = getHolder().lockCanvas();
+
+            C.drawBitmap(background1.background, background1.x, background1.y, paint);
             C.drawBitmap(Slider.Movement(),Slider.x,Slider.y, paint);
+
             getHolder().unlockCanvasAndPost(C);
         }
     }
     private void sleep() {
         try {
-           Thread.sleep(17);
+           Thread.sleep(5);
         }
         catch (InterruptedException e) {
            e.printStackTrace();
@@ -95,22 +111,28 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     }
+
+    public void newBall() {
+        BallPhys Slider2 = new BallPhys(this, ScreenY, getResources());
+        Slider2.y = Slider.y + (Slider.height/2);
+    }
+
     /**@Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getX() < ScreenY / 2) {
+                if (event.getX() < ScreenX / 2) {
                     Slider.Up = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 Slider.Up = false;
-                if (event.getY() > ScreenY / 2)
+                if (event.getX() > ScreenX / 2)
                     Slider.moveDir++;
                 break;
         }
 
         return true;
-    } **/
+    }**/
 }
