@@ -1,15 +1,13 @@
 package edu.wit.mobileapp.basketballapp;
 
-import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-@SuppressLint("ViewConstructor")
-public class GameView extends SurfaceView implements Runnable {
 
+public class GameView extends SurfaceView implements Runnable {
 
     private Thread thread;
     private boolean isPlaying;
@@ -21,6 +19,7 @@ public class GameView extends SurfaceView implements Runnable {
     public static float ScreenRatioY;
     private BallPhys Slider;
     private Background background1;
+
 
     public GameView(Game game, int x, int y) {
         super(game);
@@ -69,16 +68,20 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
 
-        //background1.x -= 10 * ScreenRatioX;
+        //Keeps the ball moving to the right
+        Slider.x += 10 * ScreenRatioX;
+        if(Slider.x >= ScreenX - Slider.width) {
+            Slider.x = 0;
+        }
 
         if (background1.x + background1.background.getWidth() < 0) {
             background1.x = ScreenX;
         }
         if (Slider.Up) {
-            Slider.y += 30 * ScreenRatioY;
+            Slider.y += 10 * ScreenRatioY;
         }
         else {
-            Slider.y -= 30 * ScreenRatioY;
+            Slider.y -= 10 * ScreenRatioY;
         }
         if (Slider.y < 0) {
             Slider.y = 0;
@@ -117,22 +120,22 @@ public class GameView extends SurfaceView implements Runnable {
         Slider2.y = Slider.y + (Slider.height/2);
     }
 
-    /**@Override
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getX() < ScreenX / 2) {
+                if (event.getY() < ScreenY / 2) {
                     Slider.Up = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 Slider.Up = false;
-                if (event.getX() > ScreenX / 2)
+                if (event.getY() > ScreenY / 2)
                     Slider.moveDir++;
                 break;
         }
 
         return true;
-    }**/
+    }
 }

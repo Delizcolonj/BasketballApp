@@ -24,8 +24,8 @@ public class BallPhys {
         height = TheBall.getHeight();
         width = TheBall.getWidth();
 
-        width /= 10;
-        height /= 10;
+        width /= 20;
+        height /= 20;
 
         width = (int) (width * ScreenRatioX);
         height = (int) (height * ScreenRatioY);
