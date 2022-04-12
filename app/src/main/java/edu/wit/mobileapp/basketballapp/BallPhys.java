@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-
 public class BallPhys   {
     int x, y, move;
     int width;
@@ -16,7 +15,9 @@ public class BallPhys   {
 
     BallPhys (GameView gameView, int ScreenY, Resources Res){
         this.gameView = gameView;
+
         TheBall = BitmapFactory.decodeResource(Res, R.drawable.ball);
+
         height = TheBall.getHeight();
         width = TheBall.getWidth();
 
