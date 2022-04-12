@@ -9,18 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Game extends AppCompatActivity {
 
-
-private GameView GameV;
-
-
+    private GameView GameV;
     protected void onCreate(Bundle savedInstance) {
-        super.onCreate(savedInstance);
 
+        super.onCreate(savedInstance);
         setContentView(R.layout.game_layout);
+
         Point p = new Point();
         getWindowManager().getDefaultDisplay().getSize(p);
-        GameV = new GameView(this, p.x, p.y);
-        //this.GameV = GameV;
+
+        GameView GameV2 = new GameView(this, p.x, p.y);
+        this.GameV = GameV2;
 
 
     }
