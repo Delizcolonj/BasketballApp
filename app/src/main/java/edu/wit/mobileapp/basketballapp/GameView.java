@@ -11,22 +11,22 @@ public class GameView extends SurfaceView implements Runnable {
 
 
     private Thread thread;
-    public boolean isPlaying = true;
-    private Context context;
-    int ScreenX;
-    int ScreenY;
+    public boolean isPlaying;
+    private Game game;
+    //private Context context;
+    private int ScreenX, ScreenY;
     private Paint paint;
     public float ScreenRatioX;
     public float ScreenRatioY;
     private BallPhys Slider;
 
-    public GameView(Context f, int x, int y) {
-        super(f);
+    public GameView(Game game, int x, int y) {
+        super(game);
         this.ScreenX = x;
         this.ScreenY = y;
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
-        Slider = new BallPhys(ScreenY, getResources());
+        Slider = new BallPhys(this, ScreenY, getResources());
     }
 
     @Override
@@ -35,6 +35,21 @@ public class GameView extends SurfaceView implements Runnable {
             update();
             draw();
             sleep();
+        }
+    }
+
+    public void resume() {
+        isPlaying = true;
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    public void pause() {
+        try {
+            isPlaying = false;
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
