@@ -2,6 +2,7 @@ package edu.wit.mobileapp.basketballapp;
 
 import android.app.GameManager;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,9 @@ private GameView GameV;
         super.onCreate(savedInstance);
 
         setContentView(R.layout.game_layout);
-        GameV = new GameView(this, 1, 1);
+        Point p = new Point();
+        getWindowManager().getDefaultDisplay().getSize(p);
+        GameV = new GameView(this, p.x, p.y);
         //this.GameV = GameV;
 
 

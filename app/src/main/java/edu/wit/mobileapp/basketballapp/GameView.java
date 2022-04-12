@@ -39,7 +39,9 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+    if (Slider.Up) {
 
+    }
     }
 
     private void draw() {

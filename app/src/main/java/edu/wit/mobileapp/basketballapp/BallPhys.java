@@ -10,6 +10,7 @@ public class BallPhys   {
     int height;
     Bitmap TheBall;
     int moveDir;
+    boolean Up = false;
 
     BallPhys (int ScreenY, Resources Res){
         TheBall = BitmapFactory.decodeResource(Res, R.drawable.ball);
