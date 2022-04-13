@@ -20,7 +20,7 @@ public class GameView extends SurfaceView implements Runnable {
     private BallPhys Slider;
     private Background background1;
     private Hoop hoop;
-
+    boolean go = false;
 
     public GameView(Game game, int x, int y) {
         super(game);
@@ -72,7 +72,9 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
 
         //Keeps the ball moving to the right
-        Slider.x += 10 * ScreenRatioX;
+        if (go) {
+            Slider.x += 10 * ScreenRatioX;
+        }
         if(Slider.x >= ScreenX - Slider.width) {
             Slider.x = 0;
         }
@@ -131,6 +133,7 @@ public class GameView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
                 if (event.getY() < ScreenY / 2) {
                     Slider.Up = true;
+                    go = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
