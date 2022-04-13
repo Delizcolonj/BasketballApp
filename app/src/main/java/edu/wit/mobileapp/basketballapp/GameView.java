@@ -1,32 +1,47 @@
 package edu.wit.mobileapp.basketballapp;
 
-import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 public class GameView extends SurfaceView implements Runnable {
 
-
     private Thread thread;
-    public boolean isPlaying = true;
-    private Context context;
-    int ScreenX;
-    int ScreenY;
+    private boolean isPlaying;
+    private Game game;
+    //private Context context;
+    private int ScreenX, ScreenY;
     private Paint paint;
-    public float ScreenRatioX;
-    public float ScreenRatioY;
+    public static float ScreenRatioX;
+    public static float ScreenRatioY;
     private BallPhys Slider;
+    private Background background1;
+    private Hoop hoop;
 
-    public GameView(Context f, int x, int y) {
-        super(f);
+
+    public GameView(Game game, int x, int y) {
+        super(game);
+
+        this.game = game;
+
         this.ScreenX = x;
         this.ScreenY = y;
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
-        Slider = new BallPhys(ScreenY, getResources());
+
+        background1 = new Background(ScreenX, ScreenY, getResources());
+        //background1.x = ScreenX;
+
+        hoop = new Hoop(getResources());
+
+        Slider = new BallPhys(this, ScreenY, getResources());
+
+        paint = new Paint();
+        paint.setTextSize(128);
+        paint.setColor(Color.WHITE);
     }
 
     @Override
@@ -35,33 +50,96 @@ public class GameView extends SurfaceView implements Runnable {
             update();
             draw();
             sleep();
+            //isPlaying=false;
+        }
+    }
+
+    public void resume(){
+        isPlaying = true;
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    public void pause() {
+        try {
+            isPlaying = false;
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
     private void update() {
-    if (Slider.Up) {
-    Slider.y -= 40 * ScreenRatioY;
-    }
-    else {
-        Slider.y += 30 * ScreenRatioY;
-    }
+
+        //Keeps the ball moving to the right
+        Slider.x += 10 * ScreenRatioX;
+        if(Slider.x >= ScreenX - Slider.width) {
+            Slider.x = 0;
+        }
+
+        if (background1.x + background1.background.getWidth() < 0) {
+            background1.x = ScreenX;
+        }
+        if (Slider.Up) {
+            Slider.y += 10 * ScreenRatioY;
+        }
+        else {
+            Slider.y -= 10 * ScreenRatioY;
+        }
+        if (Slider.y < 0) {
+            Slider.y = 0;
+            Slider.Up = true;
+        }
+        if (Slider.y >= ScreenY - Slider.height) {
+            Slider.y = ScreenY - Slider.height;
+            Slider.Up = false;
+        }
     }
 
     private void draw() {
         if (getHolder().getSurface().isValid()) {
+
             Canvas C = getHolder().lockCanvas();
-            C.drawBitmap(Slider.Movement(),Slider.x,Slider.y,paint);
+
+            C.drawBitmap(background1.background, background1.x, background1.y, paint);
+            C.drawBitmap(Slider.Movement(),Slider.x,Slider.y, paint);
+            C.drawBitmap(hoop.getHoop(), hoop.x, hoop.y, paint);
+
             getHolder().unlockCanvasAndPost(C);
         }
     }
     private void sleep() {
         try {
-            Thread.sleep(19);
+           Thread.sleep(5);
         }
         catch (InterruptedException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
 
 
+    }
+
+    public void newBall() {
+        BallPhys Slider2 = new BallPhys(this, ScreenY, getResources());
+        Slider2.y = Slider.y + (Slider.height/2);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (event.getY() < ScreenY / 2) {
+                    Slider.Up = true;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                Slider.Up = false;
+                if (event.getY() > ScreenY / 2)
+                    Slider.moveDir++;
+                break;
+        }
+
+        return true;
     }
 }
