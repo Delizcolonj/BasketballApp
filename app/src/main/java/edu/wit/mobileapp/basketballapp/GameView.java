@@ -19,6 +19,7 @@ public class GameView extends SurfaceView implements Runnable {
     public static float ScreenRatioY;
     private BallPhys Slider;
     private Background background1;
+    private Hoop hoop;
 
 
     public GameView(Game game, int x, int y) {
@@ -33,6 +34,8 @@ public class GameView extends SurfaceView implements Runnable {
 
         background1 = new Background(ScreenX, ScreenY, getResources());
         //background1.x = ScreenX;
+
+        hoop = new Hoop(getResources());
 
         Slider = new BallPhys(this, ScreenY, getResources());
 
@@ -100,6 +103,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             C.drawBitmap(background1.background, background1.x, background1.y, paint);
             C.drawBitmap(Slider.Movement(),Slider.x,Slider.y, paint);
+            C.drawBitmap(hoop.getHoop(), hoop.x, hoop.y, paint);
 
             getHolder().unlockCanvasAndPost(C);
         }
