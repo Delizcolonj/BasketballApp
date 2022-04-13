@@ -5,22 +5,16 @@ import java.util.Comparator;
 
 public class UserRecord {
     public Bitmap icon;
-    public String name;
     public String score;
 
-    public UserRecord(Bitmap icon, String name, String score) {
+    public UserRecord(Bitmap icon, String score) {
         this.icon = icon;
-        this.name = name;
         this.score = score;
     }
 
     public Bitmap getIcon() { return icon; }
 
     public void setIcon(Bitmap icon) { this.icon = icon; }
-
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
 
     public String getScore() { return score; }
 

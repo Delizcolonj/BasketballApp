@@ -27,9 +27,6 @@ public class UserRecordAdapter extends ArrayAdapter<UserRecord> {
         ImageView icon = view.findViewById(R.id.icon);
         icon.setImageBitmap(record.icon);
 
-        TextView name = view.findViewById(R.id.name);
-        name.setText(record.name);
-
         TextView score = view.findViewById(R.id.score);
         score.setText(record.score);
 
