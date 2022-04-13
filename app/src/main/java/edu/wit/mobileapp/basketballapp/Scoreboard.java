@@ -34,7 +34,6 @@ public class Scoreboard extends AppCompatActivity {
         List<UserRecord> list = new ArrayList<UserRecord>();
 
         writeFile();
-        writeFile();
 
         score = readFile();
         UserRecord record = new UserRecord(userIcon, score);
