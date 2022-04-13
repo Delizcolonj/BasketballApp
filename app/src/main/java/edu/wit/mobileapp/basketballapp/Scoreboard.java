@@ -1,9 +1,12 @@
 package edu.wit.mobileapp.basketballapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +30,8 @@ public class Scoreboard extends AppCompatActivity {
         super.onCreate(savedInstance);
         setContentView(R.layout.score_list);
 
+        Button home_btn = (Button)findViewById(R.id.button4);
+
         ListView listView = findViewById(R.id.ListView01);
 
         Bitmap userIcon = BitmapFactory.decodeResource(getResources(), R.drawable.user_icon);
@@ -44,7 +49,17 @@ public class Scoreboard extends AppCompatActivity {
 
         UserRecordAdapter adapter = new UserRecordAdapter(this, 0, list);
         listView.setAdapter(adapter);
+
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(Scoreboard.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
     private void writeFile() {
         String score = "88";
