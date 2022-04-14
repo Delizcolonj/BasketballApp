@@ -21,6 +21,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Background background1;
     private Hoop hoop;
     boolean go = false;
+    int score;
 
     public GameView(Game game, int x, int y) {
         super(game);
@@ -31,7 +32,7 @@ public class GameView extends SurfaceView implements Runnable {
         this.ScreenY = y;
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
-
+        int score;
         background1 = new Background(ScreenX, ScreenY, getResources());
         //background1.x = ScreenX;
 
@@ -71,7 +72,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         if (Slider.x >= ScreenX - Slider.width) {
-            Slider.x = 0;
+            Slider.x = (int) (64 * ScreenRatioX);
             go=false;
             Slider.Up = false;
         }
