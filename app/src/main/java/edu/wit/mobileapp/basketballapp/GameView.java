@@ -70,31 +70,33 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-
+        if (Slider.x >= ScreenX - Slider.width) {
+            Slider.x = 0;
+            go=false;
+            Slider.Up = false;
+        }
         //Keeps the ball moving to the right
         if (go) {
-            Slider.x += 10 * ScreenRatioX;
-        }
-        if(Slider.x >= ScreenX - Slider.width) {
-            Slider.x = 0;
-        }
+            Slider.x += 55 * ScreenRatioX;
+        } else {
 
-        if (background1.x + background1.background.getWidth() < 0) {
-            background1.x = ScreenX;
-        }
-        if (Slider.Up) {
-            Slider.y += 10 * ScreenRatioY;
-        }
-        else {
-            Slider.y -= 10 * ScreenRatioY;
-        }
-        if (Slider.y < 0) {
-            Slider.y = 0;
-            Slider.Up = true;
-        }
-        if (Slider.y >= ScreenY - Slider.height) {
-            Slider.y = ScreenY - Slider.height;
-            Slider.Up = false;
+
+            if (background1.x + background1.background.getWidth() < 0) {
+                background1.x = ScreenX;
+            }
+            if (Slider.Up) {
+                Slider.y += 10 * ScreenRatioY;
+            } else {
+                Slider.y -= 10 * ScreenRatioY;
+            }
+            if (Slider.y < 0) {
+                Slider.y = 0;
+                Slider.Up = true;
+            }
+            if (Slider.y >= (ScreenY - Slider.height)) {
+                Slider.y = ScreenY - Slider.height;
+                Slider.Up = false;
+            }
         }
     }
 
@@ -112,7 +114,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
     private void sleep() {
         try {
-           Thread.sleep(5);
+           Thread.sleep(19);
         }
         catch (InterruptedException e) {
            e.printStackTrace();
@@ -132,12 +134,12 @@ public class GameView extends SurfaceView implements Runnable {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (event.getY() < ScreenY / 2) {
-                    Slider.Up = true;
+               //     Slider.Up = true;
                     go = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                Slider.Up = false;
+         //       Slider.Up = false;
                 if (event.getY() > ScreenY / 2)
                     Slider.moveDir++;
                 break;
