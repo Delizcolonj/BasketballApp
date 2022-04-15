@@ -35,6 +35,14 @@ public class BallPhys {
         y = ScreenY / 2;
         x = (int) (64 * ScreenRatioX);
     }
+    int getX(){
+        int x = this.x;
+        return x;
+    }
+    int getY(){
+        int y = this.y;
+        return y;
+    }
 
     Bitmap Movement() {
 
@@ -52,4 +60,6 @@ public class BallPhys {
 
         return TheBall;
     }
+
+
 }

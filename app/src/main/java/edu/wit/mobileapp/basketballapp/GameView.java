@@ -24,15 +24,17 @@ public class GameView extends SurfaceView implements Runnable {
     int score;
 
     public GameView(Game game, int x, int y) {
-        super(game);
 
+        super(game);
+        int score = 0;
+        int lives = 3;
         this.game = game;
 
         this.ScreenX = x;
         this.ScreenY = y;
         ScreenRatioX = 1980f / ScreenX;
         ScreenRatioY = 1080f / ScreenY;
-        int score;
+
         background1 = new Background(ScreenX, ScreenY, getResources());
         //background1.x = ScreenX;
 
@@ -69,12 +71,29 @@ public class GameView extends SurfaceView implements Runnable {
             e.printStackTrace();
         }
     }
+    private void ballReset(){
+        Slider.x = (int) (64 * ScreenRatioX);
+        Slider.y = ScreenY/2;
+        go=false;
+        Slider.Up = false;
+    }
+    public boolean DidItMakeIt(){
+        if (Slider.y <= (int) (200*ScreenRatioY)) {
+            return true;
+        }
 
+        return false;
+    }
     private void update() {
+        if (Slider.x >= (int) (1150 * ScreenRatioX)) {
+            if (DidItMakeIt()) {
+                score = score + 1;
+                ballReset();
+            }
+        }
+
         if (Slider.x >= ScreenX - Slider.width) {
-            Slider.x = (int) (64 * ScreenRatioX);
-            go=false;
-            Slider.Up = false;
+         ballReset();
         }
         //Keeps the ball moving to the right
         if (go) {
@@ -86,9 +105,9 @@ public class GameView extends SurfaceView implements Runnable {
                 background1.x = ScreenX;
             }
             if (Slider.Up) {
-                Slider.y += 10 * ScreenRatioY;
+                Slider.y += (20+score*2) * ScreenRatioY;
             } else {
-                Slider.y -= 10 * ScreenRatioY;
+                Slider.y -= (20+score*2) * ScreenRatioY;
             }
             if (Slider.y < 0) {
                 Slider.y = 0;

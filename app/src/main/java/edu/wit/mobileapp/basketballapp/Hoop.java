@@ -29,8 +29,8 @@ public class Hoop {
 
         hoop = Bitmap.createScaledBitmap(hoop, width, height, false);
 
-        x = 1200;
-        y = 100;
+        x = (int) (1100*ScreenRatioX);
+        y = (int) (100*ScreenRatioY);
     }
 
     Bitmap getHoop () {
