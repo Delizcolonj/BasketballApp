@@ -24,12 +24,14 @@ public class GameView extends SurfaceView implements Runnable {
     boolean go = false;
     int score;
     int lives;
+    boolean GameOver;
 
     public GameView(Game game, int x, int y) {
 
         super(game);
         this.lives = 3;
         this.score = 0;
+        this.GameOver = false;
         this.game = game;
 
         this.ScreenX = x;
@@ -74,10 +76,12 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
     private void ballReset(){
-        Slider.x = (int) (64 * ScreenRatioX);
-        Slider.y = ScreenY/2;
-        go=false;
-        Slider.Up = false;
+        if (!GameOver) {
+            Slider.x = (int) (64 * ScreenRatioX);
+            Slider.y = ScreenY / 2;
+            go = false;
+            Slider.Up = false;
+        }
     }
     public boolean DidItMakeIt(){
         if (Slider.y <= (int) (200*ScreenRatioY)) {
@@ -95,11 +99,14 @@ public class GameView extends SurfaceView implements Runnable {
         }
 
         if (Slider.x >= ScreenX - Slider.width) {
-         ballReset();
          lives = lives -1;
-            if (lives == 0) {
+            if (lives <= 0) {
                         //INTRODUCE CLASS SWAP HERE
-                game.ScoreSwitch();
+                 this.GameOver = true;
+
+            }
+            else {
+                ballReset();
             }
         }
         //Keeps the ball moving to the right
@@ -160,16 +167,13 @@ public class GameView extends SurfaceView implements Runnable {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getY() < ScreenY / 2) {
-               //     Slider.Up = true;
+
                     go = true;
-                }
-                break;
+                    if (GameOver){
+                        this.game.ScoreSwitch();
+                    }
             case MotionEvent.ACTION_UP:
-         //       Slider.Up = false;
-                if (event.getY() > ScreenY / 2)
-                    Slider.moveDir++;
-                break;
+
         }
 
         return true;
