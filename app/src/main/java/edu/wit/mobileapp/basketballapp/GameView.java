@@ -22,12 +22,13 @@ public class GameView extends SurfaceView implements Runnable {
     private Hoop hoop;
     boolean go = false;
     int score;
+    int lives;
 
     public GameView(Game game, int x, int y) {
 
         super(game);
-        int score = 0;
-        int lives = 3;
+        this.lives = 3;
+        this.score = 0;
         this.game = game;
 
         this.ScreenX = x;
@@ -94,6 +95,10 @@ public class GameView extends SurfaceView implements Runnable {
 
         if (Slider.x >= ScreenX - Slider.width) {
          ballReset();
+         lives = lives -1;
+            if (lives == 0) {
+                        //INTRODUCE CLASS SWAP HERE
+            }
         }
         //Keeps the ball moving to the right
         if (go) {
