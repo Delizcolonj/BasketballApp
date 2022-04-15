@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.basketballapp;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -98,6 +99,7 @@ public class GameView extends SurfaceView implements Runnable {
          lives = lives -1;
             if (lives == 0) {
                         //INTRODUCE CLASS SWAP HERE
+                game.ScoreSwitch();
             }
         }
         //Keeps the ball moving to the right

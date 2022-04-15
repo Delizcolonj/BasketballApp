@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.basketballapp;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -24,6 +25,9 @@ public class Game extends AppCompatActivity {
 
         setContentView(GameV);
 
+
+
+
     }
     @Override
     protected void onPause() {
@@ -35,6 +39,12 @@ public class Game extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         GameV.resume();
+    }
+
+    public void ScoreSwitch() {
+        Intent intent = new Intent();
+        intent.setClass(Game.this, Scoreboard.class);
+        startActivity(intent);
     }
 }
 
