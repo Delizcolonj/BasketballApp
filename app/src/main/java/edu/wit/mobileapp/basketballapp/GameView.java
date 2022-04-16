@@ -25,6 +25,7 @@ public class GameView extends SurfaceView implements Runnable {
     int score;
     int lives;
     boolean GameOver;
+    GameO f;
 
     public GameView(Game game, int x, int y) {
 
@@ -45,7 +46,7 @@ public class GameView extends SurfaceView implements Runnable {
         hoop = new Hoop(getResources());
 
         Slider = new BallPhys(this, ScreenY, getResources());
-
+        f = new GameO(getResources(), ScreenX, ScreenY);
         paint = new Paint();
         paint.setTextSize(128);
         paint.setColor(Color.WHITE);
@@ -76,7 +77,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
     private void ballReset(){
-        if (!GameOver) {
+        if (lives > 0) {
             Slider.x = (int) (64 * ScreenRatioX);
             Slider.y = ScreenY / 2;
             go = false;
@@ -99,15 +100,11 @@ public class GameView extends SurfaceView implements Runnable {
         }
 
         if (Slider.x >= ScreenX - Slider.width) {
-         lives = lives -1;
-            if (lives <= 0) {
-                        //INTRODUCE CLASS SWAP HERE
-                 this.GameOver = true;
 
-            }
-            else {
+
+            this.lives = lives - 1;
                 ballReset();
-            }
+
         }
         //Keeps the ball moving to the right
         if (go) {
@@ -142,7 +139,10 @@ public class GameView extends SurfaceView implements Runnable {
             C.drawBitmap(background1.background, background1.x, background1.y, paint);
             C.drawBitmap(Slider.Movement(),Slider.x,Slider.y, paint);
             C.drawBitmap(hoop.getHoop(), hoop.x, hoop.y, paint);
-
+            if (lives <= 0){
+               // C.drawBitmap()
+                C.drawBitmap(f.getOver(), f.x, f.y, paint);
+            }
             getHolder().unlockCanvasAndPost(C);
         }
     }
@@ -169,8 +169,8 @@ public class GameView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
 
                     go = true;
-                    if (GameOver){
-                        this.game.ScoreSwitch();
+                    if (lives<=0){
+                         this.game.ScoreSwitch();
                     }
             case MotionEvent.ACTION_UP:
 
